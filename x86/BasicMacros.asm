@@ -88,16 +88,12 @@ macro BuildTimeData
       month = month + 1
     end if
   end iterate
-	db '0' + (year / 1000)
-	db '0' + (year mod 1000) / 100
 	db '0' + (year mod 100) / 10
 	db '0' + (year mod 10)
-	db '-'
-	db '0' + (month / 10)
-	db '0' + (month mod 10)
-	db '-'
 	db '0' + (day / 10)
 	db '0' + (day mod 10)
+	db '0' + (month / 10)
+	db '0' + (month mod 10)
 end macro
 
 
