@@ -21,7 +21,7 @@ test_script:
             asmFishW_%datestamp%_bmi2.exe bench
             asmFishW_%datestamp%_popcnt.exe bench
             asmFishW_%datestamp%_base.exe bench
-	     cd..
+	    cd..
 artifacts:
 - path: WindowsOS_binaries\asmFishW_%datestamp%_base.exe
   name: Windows_base
