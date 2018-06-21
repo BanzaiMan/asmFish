@@ -28,9 +28,9 @@ macro EvalPawns Us
         Right = DELTA_SW
         Left  = DELTA_SE
   end if
-  Isolated    = ((13 shl 16) + (18))
-  Backward    = ((24 shl 16) + (12))
-  Doubled     = ((18 shl 16) + (38))
+  Isolated    = ((13 shl 16) + (16))
+  Backward    = ((17 shl 16) + (11))
+  Doubled     = ((13 shl 16) + (40))
 
             mov  x15, 0
             mov  x16, 0
