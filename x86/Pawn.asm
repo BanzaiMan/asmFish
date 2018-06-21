@@ -23,14 +23,14 @@ macro EvalPawns Us
   end if
 
   Isolated0    = (27 shl 16) + (30)
-  Isolated1    = (13 shl 16) + (18)
-  Isolated     = (13 shl 16) + (18)
+  Isolated1    = (13 shl 16) + (16)
+  Isolated     = (13 shl 16) + (16)
 
   Backward0    = (40 shl 16) + (26)
-  Backward1    = (24 shl 16) + (12)
-  Backward     = (24 shl 16) + (12)
+  Backward1    = (17 shl 16) + (11)
+  Backward     = (17 shl 16) + (11)
 
-  Doubled     = ((18 shl 16) + (38))
+  Doubled     = ((13 shl 16) + (40))
 
             xor   eax, eax
             mov   qword[rdi+PawnEntry.passedPawns+8*Us], rax
