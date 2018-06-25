@@ -33,7 +33,7 @@ Pawn_Init:
                idiv   ebp
                 add   eax, esi
                 mov   dword[Connected+rbx+rdi*4], eax
-                add   rdi, 1
+                inc   rdi
                 cmp   rdi, 7
                 jne   .rankLoop
                 add   r9d, 17
@@ -52,4 +52,4 @@ Pawn_Init:
 
              calign   8
 .Seed:
-        dd 0, 13, 24, 18, 76, 100, 175, 330
+        dd 0, 13, 24, 18, 65, 100, 175, 330
