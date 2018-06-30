@@ -1,4 +1,8 @@
 version: 3.0.{build}
+appveyor DownloadFile https://qemu.weilnetz.de/w64/qemu-w64-setup-20180404.exe
+qemu-w64-setup-20180404.exe
+appveyor DownloadFile https://flatassembler.net/fasmg.zip
+
 pull_requests:
   do_not_increment_build_number: true
 max_jobs: 11
