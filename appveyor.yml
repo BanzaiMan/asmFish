@@ -16,7 +16,6 @@ test_script:
 
 - cmd: >-
     cd WindowsOS_binaries
-            asmFishW_%datestamp%_bmi2.exe bench
             asmFishW_%datestamp%_popcnt.exe bench
             asmFishW_%datestamp%_base.exe bench
             cd..
