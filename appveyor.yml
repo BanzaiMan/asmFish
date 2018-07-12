@@ -29,14 +29,3 @@ artifacts:
   name: Linux
 - path: MacOS_binaries
   name: Mac
-notifications:
-- provider: GitHubPullRequest
-  template: Benches match!
-  on_build_success: true
-  on_build_failure: false
-  on_build_status_changed: false
-- provider: GitHubPullRequest
-  template: Benches do not match!
-  on_build_success: false
-  on_build_failure: true
-  on_build_status_changed: false
