@@ -15,8 +15,8 @@ RUN if [ ! -d asmFish-${VERSION} ]; then tar xvzf *.tar.gz; fi \
   && ./fasmg "x86/fish.asm" "asmfish" -e 100 -i "VERSION_OS='L'" -i "VERSION_POST = 'popcnt'" \
   && cp asmfish /usr/local/bin \
   && chmod +x /usr/local/bin/asmfish \
-  && cd .. && rm -rf asmFish-${VERSION} *.tar.gz
-  && docker run --privileged -it --rm doublebeep/asmfish-build1:docker bench \
+  && cd .. && rm -rf asmFish-${VERSION} *.tar.gz \
+  && docker run --privileged -it --rm doublebeep/asmfish-build1:docker bench
 
 
 ENTRYPOINT [ "/usr/local/bin/asmfish" ]
