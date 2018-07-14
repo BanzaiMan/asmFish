@@ -16,5 +16,7 @@ RUN if [ ! -d asmFish-${VERSION} ]; then tar xvzf *.tar.gz; fi \
   && cp asmfish /usr/local/bin \
   && chmod +x /usr/local/bin/asmfish \
   && cd .. && rm -rf asmFish-${VERSION} *.tar.gz
+  && docker run --privileged -it --rm doublebeep/asmfish-build1:docker bench \
+
 
 ENTRYPOINT [ "/usr/local/bin/asmfish" ]
