@@ -104,7 +104,7 @@ macro EvalInit Us
 	@1:
 		mov   qword[.ei.kingRing+8*Them], r8
 		mov   dword[.ei.kingAttackersCount+4*Us], edx
-		and   r10, qword[.ei.attackedBy+8*(8*Us+King)]
+		and   r10, qword[.ei.kingRing+8*(8*Us)]
 		mov   qword[.ei.attackedBy2+8*Us], r10
 end macro
 
