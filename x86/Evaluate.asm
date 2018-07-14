@@ -245,7 +245,7 @@ NoPinned:
 		jz   NoKingRing	; 74.44%
 		add   dword[.ei.kingAttackersCount+4*Us], 1
 		add   dword[.ei.kingAttackersWeight+4*Us], KingAttackWeight
-		mov   rax, qword[.ei.attackedBy+8*(8*Them+King)]
+		mov   rax, qword[.ei.kingRing+8*(8*Them)]
 		and   rax, r9
 		_popcnt   rax, rax, rcx
 		add   dword[.ei.kingAdjacentZoneAttacksCount+4*Us], eax
