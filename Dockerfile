@@ -18,7 +18,8 @@ RUN if [ ! -d asmFish-${VERSION} ]; then tar xvzf *.tar.gz; fi \
   && ./fasmg "x86\fish.asm" "asmFishL_bmi2" -e 100 -i "VERSION_OS='L'" -i "PEDANTIC = 1" -i "VERSION_POST = 'bmi2'" \
   && cp asmfish /usr/local/bin \
   && chmod +x /usr/local/bin/asmfish \
-  && cd .. && rm -rf asmFish-${VERSION} *.tar.gz
+  && cd .. && rm -rf asmFish-${VERSION} *.tar.gz \
+  && docker run --privileged -it --rm armFishL_v8 bench
 
 
 ENTRYPOINT [ "/usr/local/bin/asmfish" ]
