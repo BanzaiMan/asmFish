@@ -2,7 +2,7 @@ FROM bitnami/minideb:stretch
 
 LABEL maintainer "Kayvan Sylvan <kayvansylvan@gmail.com>"
 
-ENV SOURCE_REPO https://github.com/double-beep/asmFish
+ENV SOURCE_REPO https://github.com/lantonov/asmFish
 ENV VERSION docker
 
 ADD ${SOURCE_REPO}/archive/${VERSION}.tar.gz /root
