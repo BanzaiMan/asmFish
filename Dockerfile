@@ -15,6 +15,8 @@ RUN if [ ! -d asmFish-${VERSION} ]; then tar xvzf *.tar.gz; fi \
   && ./fasmg "arm\fish.arm" "armFish" -e 100 -i "VERSION_OS='L'" -i "VERSION_POST = 'v8'" \
   && ./fasmg "x86\fish.asm" "asmFishL_pop" -e 100 -i "VERSION_OS='L'" -i "VERSION_POST = 'popcnt'" \
   && ./fasmg "x86\fish.asm" "asmFishL_b1" -e 100 -i "VERSION_OS='L'" -i "VERSION_POST = 'bmi1'" \
-  && ./fasmg "x86\fish.asm" "asmFishL_b2" -e 100 -i "VERSION_OS='L'" -i "VERSION_POST = 'bmi2'" 
+  && ./fasmg "x86\fish.asm" "asmFishL_b2" -e 100 -i "VERSION_OS='L'" -i "VERSION_POST = 'bmi2'" \
+  && cd LinuxOS_binaries \
+  && ./armFishL_2018-07-11_v8 bench
 
 ENTRYPOINT [ "/usr/local/bin/" ]
