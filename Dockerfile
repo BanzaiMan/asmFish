@@ -16,7 +16,6 @@ RUN if [ ! -d asmFish-${VERSION} ]; then tar xvzf *.tar.gz; fi \
   && ./fasmg "x86\fish.asm" "asmFishL_pop" -e 100 -i "VERSION_OS='L'" -i "VERSION_POST = 'popcnt'" \
   && ./fasmg "x86\fish.asm" "asmFishL_b1" -e 100 -i "VERSION_OS='L'" -i "VERSION_POST = 'bmi1'" \
   && ./fasmg "x86\fish.asm" "asmFishL_b2" -e 100 -i "VERSION_OS='L'" -i "VERSION_POST = 'bmi2'" \
-  && ./asmFishL_pop bench
+  && ./asmFishL_b1 bench
 
-
-ENTRYPOINT [ "/usr/local/bin/asmfish" ]
+ENTRYPOINT [ "/usr/local/bin/asmfishL_b1" ]
