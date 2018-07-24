@@ -1454,10 +1454,7 @@ Display	2, "Search(alpha=%i1, beta=%i2, depth=%i8) called%n"
   end if
 .18fail_high:
 	     Assert   ge, edi, dword[.beta], 'did not fail high in Search'
-		mov  ecx, dword[rbx + State.statScore]
 		xor  eax, eax
-		test  ecx, ecx
-		cmovns  eax, dword[rbx + State.statScore]
 		mov  dword[rbx + State.statScore], eax
 		jmp  .MovePickDone
 .18NoNewValue:
