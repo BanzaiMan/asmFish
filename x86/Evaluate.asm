@@ -866,12 +866,6 @@ macro ShelterStorm Us
 		; r8d = ourRank
 		; esi = ourRank + 1
 
-; if (ourRank || theirRank)
-		test rdi, rdi
-		jnz  @1f
-		test r8d, r8d
-		jz  @f
-
 ; safety -=  StormDanger[ ourRank && (ourRank == theirRank - 1) ? BlockedByPawn : Unblocked ][d][theirRank];
 	@1:
 		test  r8d, r8d ; (ourRank = true)
