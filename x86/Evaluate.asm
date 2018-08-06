@@ -95,8 +95,9 @@ macro EvalInit Us
 		or  r8, rdx
 
 	@@:
-		and   r9, r10
-		_popcnt   rdx, r9, rcx
+		mov  rax, r8
+		and  rax, r10 ; kingRing & pawnAttacks
+		_popcnt  rdx, rax, rcx
 		xor   eax, eax
 		mov   dword[.ei.kingAttackersWeight+4*Us], eax
 		mov   dword[.ei.kingAdjacentZoneAttacksCount+4*Us], eax
@@ -164,21 +165,21 @@ macro EvalPieces Us, Pt
   if Pt	= Knight
 	Outpost0	  = ((22 shl 16) + ( 6))
 	Outpost1	  = ((36 shl 16) + (12))
-	KingAttackWeight  = 78
+	KingAttackWeight  = 77
 	MobilityBonus	  equ MobilityBonus_Knight
 	KingProtector_Pt  = ((-3 shl 16) + (-5))
   else if Pt = Bishop
 	Outpost0	  = (( 9 shl 16) + (2))
 	Outpost1	  = ((15 shl 16) + (5))
-	KingAttackWeight  = 56
+	KingAttackWeight  = 55
 	MobilityBonus	  equ MobilityBonus_Bishop
         KingProtector_Pt  = ((-4 shl 16) + (-3))
   else if Pt = Rook
-	KingAttackWeight  = 45
+	KingAttackWeight  = 44
 	MobilityBonus	  equ MobilityBonus_Rook
 	KingProtector_Pt  = ((-3 shl 16) + (0))
   else if Pt = Queen
-	KingAttackWeight  = 11
+	KingAttackWeight  = 10
 	MobilityBonus	  equ MobilityBonus_Queen
 	KingProtector_Pt  = ((-1 shl 16) + (1))
   else
@@ -615,7 +616,7 @@ KingSafetyDoneRet:
 		mov   r10, qword[.ei.mobilityArea+8*Them]
 		and   r9, r10
 
-		mov   rdx, qword[.ei.pinnedPieces+8*Us]
+		mov   rdx, qword[rbx+State.blockersForKing+8*Us]
 		or    rdx, r9
 
 		_popcnt rax, rdx, rcx
@@ -832,56 +833,62 @@ macro ShelterStorm Us
 		mov   r8, qword[FileBB+8*r12]
 		and   r8, r10
 		bsr   rdi, r8
-		cmovz   edi, edx
+		cmovz edi, edx
 		shr   edi, 3
 		xor   edi, 7
 	end if
-	; edi = rkThem
-
+	; edi = theirRank
 
 	if Us eq White
 		mov   r8, qword[FileBB+8*r12]
 		and   r8, r9
 		bsf   rsi, r8
-		cmovz   esi, edx
+		cmovz  esi, edx
 		shr   esi, 3
 	else
 		mov   r8, qword[FileBB+8*r12]
 		and   r8, r9
 		bsr   rsi, r8
-		cmovz   esi, edx
+		cmovz  esi, edx
 		shr   esi, 3
 		xor   esi, 7
 	end if
-	; esi = rkUs
-
-
+	; esi = ourRank
 		mov   edx, r12d
 		shl   edx, 3+2
 	; ShelterStrength and StormDanger are twice as big
 	; to avoid an annoying min(f,FILE_H-f) in ShelterStorm
 
 
+ ; save ourRank in r8d for later comparisons since "sub esi, 1" does not work
+		mov   r8d, esi
 		add   esi, 1
-	; esi = rkUs+1
+		; r8d = ourRank
+		; esi = ourRank + 1
 
-		cmp   ecx, r12d
-		jne   @f
+; if (ourRank || theirRank)
+		test rdi, rdi
+		jnz  @1f
+		test r8d, r8d
+		jz  @f
 
-; Rank Comparisons
-	@@:
-    	lea   r8, [ShelterStrengthArray - 4*1 + rdx]
-		lea   r11, [StormDanger_NoFriendlyPawn + rdx]
-		cmp   esi, 1
-		je   @1f
-		lea   r11, [StormDanger_BlockedByPawn +	rdx]
-		cmp   esi, edi
-		je   @1f
-		lea   r11, [StormDanger_Unblocked + rdx]
+; safety -=  StormDanger[ ourRank && (ourRank == theirRank - 1) ? BlockedByPawn : Unblocked ][d][theirRank];
 	@1:
-		add   eax, dword[r8 + 4*rsi]
+		test  r8d, r8d ; (ourRank = true)
+		jz  @2f
+		lea  r11, [StormDanger_BlockedByPawn + rdx]
+		cmp  esi, edi ; (ourRank == theirRank - 1)
+		je  @3f
+	@2:
+		lea   r11, [StormDanger_Unblocked + rdx]
+	@3:
 		sub   eax, dword[r11 + 4*rdi]
-        lea   r12d, [r12+1]
+
+; safety +=  ShelterStrength[d][ourRank];
+	@@:
+		lea   r8, [ShelterStrengthArray - 4*1 + rdx]
+		add   eax, dword[r8 + 4*rsi]
+		lea   r12d, [r12+1]
   end macro
 
     ShelterStormAcc
