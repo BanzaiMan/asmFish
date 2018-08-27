@@ -1,25 +1,138 @@
 version: 3.0.{build}
-pull_requests:
-  do_not_increment_build_number: true
-max_jobs: 11
-platform: Any CPU
 clone_folder: C:\Projects\asmFish
-build_script:
-- cmd: "fasmg.exe \"x86\\fish.asm\" \"asmFishW_bmi2.exe\" -e 1000 -i \"VERSION_OS='W'\" -i \"PEDANTIC = 1\" -i \"VERSION_POST = 'bmi2'\"\nasmFishW_bmi2.exe bench\nfor /f \"tokens=2 delims==\" %%a in ('wmic OS Get localdatetime /value') do set \"dt=%%a\"\nset \"YY=%dt:~2,2%\" & set \"YYYY=%dt:~0,4%\" & set \"MM=%dt:~4,2%\" & set \"DD=%dt:~6,2%\"\nset \"HH=%dt:~8,2%\" & set \"Min=%dt:~10,2%\" & set \"Sec=%dt:~12,2%\"\nset \"datestamp=%YYYY%-%MM%-%DD%\" & set \"timestamp=%HH%%Min%%Sec%\" & set \"fullstamp=%YYYY%-%MM%-%DD%_%HH%%Min%%Sec%\"\nECHO === Building Windows Executables ===\ncd WindowsOS_binaries\nif exist *bmi2.exe del *bmi2.exe\nif exist *popcnt.exe del *popcnt.exe\ncd ..\nset include=x86\\include\\\nfasmg.exe \"x86\\fish.asm\" \"asmFishW_%datestamp%_popcnt.exe\" -e 1000 -i \"VERSION_OS='W'\" -i \"PEDANTIC = 1\" -i \"VERSION_POST = 'popcnt'\" \nfasmg.exe \"x86\\fish.asm\" \"asmFishW_%datestamp%_bmi2.exe\" -e 1000 -i \"VERSION_OS='W'\" -i \"PEDANTIC = 1\" -i \"VERSION_POST = 'bmi2'\" \ncd LinuxOS_binaries\nif exist asm* del asm*\ncd ..\nECHO === Building Linux Executables ===\nfasmg.exe \"x86\\fish.asm\" \"asmFishL_%datestamp%_popcnt\" -e 1000 -i \"VERSION_OS='L'\" -i \"PEDANTIC = 1\" -i \"VERSION_POST = 'popcnt'\" \nfasmg.exe \"x86\\fish.asm\" \"asmFishL_%datestamp%_bmi2\" -e 1000 -i \"VERSION_OS='L'\" -i \"PEDANTIC = 1\" -i \"VERSION_POST = 'bmi2'\" \ncd MacOS_binaries\nif exist asm* del asm*\ncd ..\nECHO === Building MacOS Executables ===\nfasmg.exe \"x86\\fish.asm\" \"asmFishX_%datestamp%_popcnt\" -e 1000 -i \"VERSION_OS='X'\" -i \"PEDANTIC = 1\" -i \"VERSION_POST = 'popcnt'\" \nfasmg.exe \"x86\\fish.asm\" \"asmFishX_%datestamp%_bmi2\" -e 1000 -i \"VERSION_OS='X'\" -i \"PEDANTIC = 1\" -i \"VERSION_POST = 'bmi2'\" \ncd LinuxOS_binaries\nif exist arm* del arm*\ncd ..\nset include=arm\\include\\\nECHO === Building ARM Executable ===\nfasmg.exe \"arm\\fish.arm\" \"armFishL_%datestamp%_v8\" -e 1000 -i \"VERSION_OS='L'\" -i \"PEDANTIC = 1\" -i \"VERSION_POST = 'v8'\" \ncd Matefinder_binaries\nif exist mateFishW* del mateFishW*\nif exist *base del *base\ncd ..\nset include=x86\\include\\\nECHO === Building Windows Matefinder Executables ===\nfasmg.exe \"x86\\fish.asm\" \"mateFishW_%datestamp%_popcnt.exe\" -e 1000 -i \"VERSION_OS='W'\" -i \"VERSION_POST = 'popcnt'\" -i \"USE_MATEFINDER = 1\" \nfasmg.exe \"x86\\fish.asm\" \"mateFishW_%datestamp%_bmi2.exe\" -e 1000 -i \"VERSION_OS='W'\" -i \"VERSION_POST = 'bmi2'\" -i \"USE_MATEFINDER = 1\" \ncd Matefinder_binaries\nif exist mateFishL* del mateFishL*\ncd ..\nECHO === Building Linux Matefinder Executables ===\nfasmg.exe \"x86\\fish.asm\" \"mateFishL_%datestamp%_bmi2\" -e 1000 -i \"VERSION_OS='L'\" -i \"VERSION_POST = 'bmi2'\" -i \"USE_MATEFINDER = 1\" \nfasmg.exe \"x86\\fish.asm\" \"mateFishL_%datestamp%_popcnt\" -e 1000 -i \"VERSION_OS='L'\" -i \"VERSION_POST = 'popcnt'\" -i \"USE_MATEFINDER = 1\" \nset include=arm\\include\\\nstart /min fasmg.exe \"arm\\fish.arm\" \"mateFishL_%datestamp%_v8\" -e 1000 -i \"VERSION_OS='L'\" -i \"VERSION_POST = 'v8'\" -i \"USE_MATEFINDER = 1\" \ncd Matefinder_binaries\nif exist mateFishX* del mateFishX*\ncd ..\nECHO === Building MacOS Matefinder Executables ===\nfasmg.exe \"x86\\fish.asm\" \"mateFishX_%datestamp%_bmi2\" -e 1000 -i \"VERSION_OS='X'\" -i \"VERSION_POST = 'bmi2'\" -i \"USE_MATEFINDER = 1\" \nfasmg.exe \"x86\\fish.asm\" \"mateFishX_%datestamp%_popcnt\" -e 1000 -i \"VERSION_OS='X'\" -i \"VERSION_POST = 'popcnt'\" -i \"USE_MATEFINDER = 1\" \ncd WindowsOS_binaries\nif exist *base.exe del *base.exe\ncd ..\nECHO === Building Windows Base Executables ===\nfasmg.exe \"x86\\fish.asm\" \"asmFishW_%datestamp%_base.exe\" -e 1000 -i \"VERSION_OS='W'\" -i \"PEDANTIC = 1\" -i \"VERSION_POST = 'base'\" \nfasmg.exe \"x86\\fish.asm\" \"mateFishW_%datestamp%_base.exe\" -e 1000 -i \"VERSION_OS='W'\" -i \"PEDANTIC = 1\" -i \"VERSION_POST = 'base'\" -i \"USE_MATEFINDER = 1\" \ncd LinuxOS_binaries\nif exist *base del *base\ncd ..\nECHO === Building Linux Base Executables ===\nfasmg.exe \"x86\\fish.asm\" \"asmFishL_%datestamp%_base\" -e 1000 -i \"VERSION_OS='L'\" -i \"PEDANTIC = 1\" -i \"VERSION_POST = 'base'\" \nfasmg.exe \"x86\\fish.asm\" \"mateFishL_%datestamp%_base\" -e 1000 -i \"VERSION_OS='L'\" -i \"PEDANTIC = 1\" -i \"VERSION_POST = 'base'\" -i \"USE_MATEFINDER = 1\" \ncd MacOS_binaries\nif exist *base del *base\ncd ..\nECHO === Building MacOS Base Executables ===\nfasmg.exe \"x86\\fish.asm\" \"asmFishX_%datestamp%_base\" -e 1000 -i \"VERSION_OS='X'\" -i \"PEDANTIC = 1\" -i \"VERSION_POST = 'base'\" \nfasmg.exe \"x86\\fish.asm\" \"mateFishX_%datestamp%_base\" -e 1000 -i \"VERSION_OS='X'\" -i \"PEDANTIC = 1\" -i \"VERSION_POST = 'base'\" -i \"USE_MATEFINDER = 1\" \ntimeout 5\nmove asmFishW_%datestamp%* WindowsOS_binaries\nmove asmFishL_%datestamp%* LinuxOS_binaries\nmove asmFishX_%datestamp%* MacOS_binaries\nmove mateFish* Matefinder_binaries\nmove armFishL_%datestamp%_v8 LinuxOS_binaries"
-test_script:
+clone_script:
+   # Clone Stockfish just to compile it:
+  - git clone --branch=master https://github.com/official-stockfish/Stockfish.git C:\Projects\Stockfish
+  - git clone --branch=%APPVEYOR_REPO_BRANCH% https://github.com/double-beep/asmFish.git C:\Projects\asmFish
 
-- cmd: >-
-    cd WindowsOS_binaries
-            asmFishW_%datestamp%_bmi2.exe bench
-            asmFishW_%datestamp%_popcnt.exe bench
-            asmFishW_%datestamp%_base.exe bench
-            cd..
-    
-    cd Matefinder_binaries
-            mateFishW_%datestamp%_bmi2.exe bench
-            mateFishW_%datestamp%_popcnt.exe bench
-            mateFishW_%datestamp%_base.exe bench
-            cd..
+install:
+
+  - cd C:\Projects\Stockfish
+  - cinst wget
+  - wget --no-check-certificate https://github.com/double-beep/asmFish/raw/BetterAppveyor/msys.sh # get msys.sh
+  - git rev-list master --max-count=1 --grep="%APPVEYOR_REPO_COMMIT_MESSAGE%"> reset.txt
+
+  - ps: |
+      $Rsf = (gc ./reset.txt)
+      git checkout -qf $Rsf
+
+build_script:
+- cmd: "cd C:\\Projects\\Stockfish\\\nwget --no-check-certificate \"http://sourceforge.net/projects/mingw-w64/files/Toolchains targetting Win64/Personal Builds/mingw-builds/4.9.2/threads-posix/seh/x86_64-4.9.2-release-posix-seh-rt_v4-rev2.7z\"\n7z x -oC:\\MinGW\\msys\\1.0\\ x86_64-4.9.2-release-posix-seh-rt_v4-rev2.7z\nC:\\MinGW\\msys\\1.0\\bin\\sh.exe -c \"cd /c/projects/stockish/; /c/projects/stockfish/msys.sh\"\ncd C:\\Projects\\asmFish\\\nfasmg.exe \"x86\\fish.asm\" \"asmFishW_bmi2.exe\" -e 1000 -i \"VERSION_OS='W'\" -i \"PEDANTIC = 1\" -i \"VERSION_POST = 'bmi2'\"\nasmFishW_bmi2.exe bench\nfor /f \"tokens=2 delims==\" %%a in ('wmic OS Get localdatetime /value') do set \"dt=%%a\"\nset \"YY=%dt:~2,2%\" & set \"YYYY=%dt:~0,4%\" & set \"MM=%dt:~4,2%\" & set \"DD=%dt:~6,2%\"\nset \"HH=%dt:~8,2%\" & set \"Min=%dt:~10,2%\" & set \"Sec=%dt:~12,2%\"\nset \"datestamp=%YYYY%-%MM%-%DD%\" & set \"timestamp=%HH%%Min%%Sec%\" & set \"fullstamp=%YYYY%-%MM%-%DD%_%HH%%Min%%Sec%\"\nECHO === Building Windows Executables ===\ncd WindowsOS_binaries\nif exist *bmi2.exe del *bmi2.exe\nif exist *popcnt.exe del *popcnt.exe\ncd ..\nset include=x86\\include\\\nfasmg.exe \"x86\\fish.asm\" \"asmFishW_%datestamp%_popcnt.exe\" -e 1000 -i \"VERSION_OS='W'\" -i \"PEDANTIC = 1\" -i \"VERSION_POST = 'popcnt'\" \nfasmg.exe \"x86\\fish.asm\" \"asmFishW_%datestamp%_bmi2.exe\" -e 1000 -i \"VERSION_OS='W'\" -i \"PEDANTIC = 1\" -i \"VERSION_POST = 'bmi2'\" \ncd LinuxOS_binaries\nif exist asm* del asm*\ncd ..\nECHO === Building Linux Executables ===\nfasmg.exe \"x86\\fish.asm\" \"asmFishL_%datestamp%_popcnt\" -e 1000 -i \"VERSION_OS='L'\" -i \"PEDANTIC = 1\" -i \"VERSION_POST = 'popcnt'\" \nfasmg.exe \"x86\\fish.asm\" \"asmFishL_%datestamp%_bmi2\" -e 1000 -i \"VERSION_OS='L'\" -i \"PEDANTIC = 1\" -i \"VERSION_POST = 'bmi2'\" \ncd MacOS_binaries\nif exist asm* del asm*\ncd ..\nECHO === Building MacOS Executables ===\nfasmg.exe \"x86\\fish.asm\" \"asmFishX_%datestamp%_popcnt\" -e 1000 -i \"VERSION_OS='X'\" -i \"PEDANTIC = 1\" -i \"VERSION_POST = 'popcnt'\" \nfasmg.exe \"x86\\fish.asm\" \"asmFishX_%datestamp%_bmi2\" -e 1000 -i \"VERSION_OS='X'\" -i \"PEDANTIC = 1\" -i \"VERSION_POST = 'bmi2'\" \ncd LinuxOS_binaries\nif exist arm* del arm*\ncd ..\nset include=arm\\include\\\nECHO === Building ARM Executable ===\nfasmg.exe \"arm\\fish.arm\" \"armFishL_%datestamp%_v8\" -e 1000 -i \"VERSION_OS='L'\" -i \"PEDANTIC = 1\" -i \"VERSION_POST = 'v8'\" \ncd Matefinder_binaries\nif exist mateFishW* del mateFishW*\nif exist *base del *base\ncd ..\nset include=x86\\include\\\nECHO === Building Windows Matefinder Executables ===\nfasmg.exe \"x86\\fish.asm\" \"mateFishW_%datestamp%_popcnt.exe\" -e 1000 -i \"VERSION_OS='W'\" -i \"VERSION_POST = 'popcnt'\" -i \"USE_MATEFINDER = 1\" \nfasmg.exe \"x86\\fish.asm\" \"mateFishW_%datestamp%_bmi2.exe\" -e 1000 -i \"VERSION_OS='W'\" -i \"VERSION_POST = 'bmi2'\" -i \"USE_MATEFINDER = 1\" \ncd Matefinder_binaries\nif exist mateFishL* del mateFishL*\ncd ..\nECHO === Building Linux Matefinder Executables ===\nfasmg.exe \"x86\\fish.asm\" \"mateFishL_%datestamp%_bmi2\" -e 1000 -i \"VERSION_OS='L'\" -i \"VERSION_POST = 'bmi2'\" -i \"USE_MATEFINDER = 1\" \nfasmg.exe \"x86\\fish.asm\" \"mateFishL_%datestamp%_popcnt\" -e 1000 -i \"VERSION_OS='L'\" -i \"VERSION_POST = 'popcnt'\" -i \"USE_MATEFINDER = 1\" \nset include=arm\\include\\\nstart /min fasmg.exe \"arm\\fish.arm\" \"mateFishL_%datestamp%_v8\" -e 1000 -i \"VERSION_OS='L'\" -i \"VERSION_POST = 'v8'\" -i \"USE_MATEFINDER = 1\" \ncd Matefinder_binaries\nif exist mateFishX* del mateFishX*\ncd ..\nECHO === Building MacOS Matefinder Executables ===\nfasmg.exe \"x86\\fish.asm\" \"mateFishX_%datestamp%_bmi2\" -e 1000 -i \"VERSION_OS='X'\" -i \"VERSION_POST = 'bmi2'\" -i \"USE_MATEFINDER = 1\" \nfasmg.exe \"x86\\fish.asm\" \"mateFishX_%datestamp%_popcnt\" -e 1000 -i \"VERSION_OS='X'\" -i \"VERSION_POST = 'popcnt'\" -i \"USE_MATEFINDER = 1\" \ncd WindowsOS_binaries\nif exist *base.exe del *base.exe\ncd ..\nECHO === Building Windows Base Executables ===\nfasmg.exe \"x86\\fish.asm\" \"asmFishW_%datestamp%_base.exe\" -e 1000 -i \"VERSION_OS='W'\" -i \"PEDANTIC = 1\" -i \"VERSION_POST = 'base'\" \nfasmg.exe \"x86\\fish.asm\" \"mateFishW_%datestamp%_base.exe\" -e 1000 -i \"VERSION_OS='W'\" -i \"PEDANTIC = 1\" -i \"VERSION_POST = 'base'\" -i \"USE_MATEFINDER = 1\" \ncd LinuxOS_binaries\nif exist *base del *base\ncd ..\nECHO === Building Linux Base Executables ===\nfasmg.exe \"x86\\fish.asm\" \"asmFishL_%datestamp%_base\" -e 1000 -i \"VERSION_OS='L'\" -i \"PEDANTIC = 1\" -i \"VERSION_POST = 'base'\" \nfasmg.exe \"x86\\fish.asm\" \"mateFishL_%datestamp%_base\" -e 1000 -i \"VERSION_OS='L'\" -i \"PEDANTIC = 1\" -i \"VERSION_POST = 'base'\" -i \"USE_MATEFINDER = 1\" \ncd MacOS_binaries\nif exist *base del *base\ncd ..\nECHO === Building MacOS Base Executables ===\nfasmg.exe \"x86\\fish.asm\" \"asmFishX_%datestamp%_base\" -e 1000 -i \"VERSION_OS='X'\" -i \"PEDANTIC = 1\" -i \"VERSION_POST = 'base'\" \nfasmg.exe \"x86\\fish.asm\" \"mateFishX_%datestamp%_base\" -e 1000 -i \"VERSION_OS='X'\" -i \"PEDANTIC = 1\" -i \"VERSION_POST = 'base'\" -i \"USE_MATEFINDER = 1\" \ntimeout 5\nmove asmFishW_%datestamp%* WindowsOS_binaries\nmove asmFishL_%datestamp%* LinuxOS_binaries\nmove asmFishX_%datestamp%* MacOS_binaries\nmove mateFish* Matefinder_binaries\nmove armFishL_%datestamp%_v8 LinuxOS_binaries"
+
+before_test:
+# General preparation: (compile Stockfish and get benches from all executables)
+
+# GET BENCH NUMBER (ASMFISH)
+  - cd C:\Projects\asmFish\WindowsOS_binaries
+  # Get asm executables benches and store them in *.txt files. *.txt folders are moved in C:\Projects\asmFish:
+  - asmFishW_%datestamp%_base.exe bench> asmBase.txt
+  - asmFishW_%datestamp%_popcnt.exe bench> asmPopcnt.txt
+  - asmFishW_%datestamp%_bmi2.exe bench> asmBmi2.txt
+  - move *.txt %APPVEYOR_BUILD_FOLDER%
+  - cd..
+
+  - cd Matefinder_binaries
+  # Get mate executables benches and store them in *.txt files.
+  - mateFishW_%datestamp%_base.exe bench> mateBase.txt
+  - mateFishW_%datestamp%_popcnt.exe bench> matePopcnt.txt
+  - mateFishW_%datestamp%_bmi2.exe bench> mateBmi2.txt
+  - move *.txt %APPVEYOR_BUILD_FOLDER%
+  - cd..
+
+
+# GET BENCH NUMBER (STOCKFISH)
+  - cd C:\Projects\Stockfish\src
+  - stockfish bench 2> out.txt >NUL
+
+  - ps: |
+      # CONVERT AND FIND BENCH NUMBER (ASMFISH)
+      cd C:\Projects\asmFish
+      $EasmBa = (gc "./asmBase.txt" | out-string)
+      $EasmP = (gc "./asmPopcnt.txt" | out-string)
+      $EasmBm = (gc "./asmBmi2.txt" | out-string)
+      $EmateBa = (gc "./mateBase.txt" | out-string) 
+      $EmateP = (gc "./matePopcnt.txt" | out-string)
+      $EmateBm = (gc "./mateBmi2.txt" | out-string)
+      $RasmBa = ($EasmBa -match 'Nodes searched \D+(\d+)' | % { $matches[1] })
+      $RasmP = ($EasmP -match 'Nodes searched \D+(\d+)' | % { $matches[1] })
+      $RasmBm = ($EasmBm -match 'Nodes searched \D+(\d+)' | % { $matches[1] })
+      $RmateBa = ($EmateBa -match 'Nodes searched \D+(\d+)' | % { $matches[1] })
+      $RmateP = ($EmateP -match 'Nodes searched \D+(\d+)' | % { $matches[1] })
+      $RmateBm = ($EmateBm -match 'Nodes searched \D+(\d+)' | % { $matches[1] })
+
+      # CONVERT AND FIND BENCH NUMBER (STOCKFISH)
+      cd C:\Projects\Stockfish\src
+      $s = (gc "./out.txt" | out-string)
+      $Stockfish = ($s -match 'Nodes searched \D+(\d+)' | % { $matches[1] })
+
+test_script:
+# Show benches
+      - ps: |
+          Write-Host "STOCKFISH BENCH: " $Stockfish
+          Write-Host " "
+          Write-Host "asm_BASE.exe:"     $RasmBa
+          Write-Host "asm_POPCNT.exe:"   $RasmP
+          Write-Host "asm_BMI2.exe:"     $RasmBm
+          Write-Host " "
+          Write-Host "mate_base.exe:"    $RmateBa
+          Write-Host "mate_popcnt.exe:"  $RmateP
+          Write-Host "mate_bmi2.exe:"    $RmateBm
+
+          # Check if executables have the same benches. If not, (terminate_build)
+
+
+          # Check if the asm executables have their benches aligned:
+          If ($RasmBa -ne $RasmP) {
+          Write-Host "Base bench is not the same with popcnt bench!"
+          exit 1
+          }
+
+          If ($RasmBa -ne $RasmBm) {
+          Write-Host "Base bench is not the same with bmi2 bench!"
+          exit 1
+          }
+
+          If ($RasmP -ne $RasmBm) {
+          Write-Host "Popcnt bench is not the same with bmi2 bench!"
+          exit 1
+          }
+
+
+          # Check if the asm executables have the same bench with stockfish executable:
+          If ($Stockfish -ne $RasmP) {
+          Write-Host "Stockfish bench is not the same with popcnt bench!"
+          exit 1
+          }
+
+          If ($Stockfish -ne $RasmBm) {
+          Write-Host "Stockfish bench is not the same with bmi2 bench!"
+          exit 1
+          }
+
+          If ($Stockfish -ne $RasmBa) {
+          Write-Host "Stockfish bench is not the same with base bench!"
+          exit 1
+          }
+
+
+          # Check if the mate executables have their benches aligned:
+          If ($RmateBa -ne $RmateP) {
+          Write-Host "MATE: Base bench is not the same with popcnt bench!"
+          exit 1
+          }
+
+          If ($RmateBa -ne $RmateBm) {
+          Write-Host "MATE: Base bench is not the same with bmi2 bench!"
+          exit 1
+          }
+
+          If ($RmateP -ne $RmateBm) {
+          Write-Host "MATE: Popcnt bench is not the same with bmi2 bench!"
+          exit 1
+          } else {
+          Write-Host "BUILD DONE!!!"
+          }
+
 artifacts:
 - path: WindowsOS_binaries
   name: Windows
@@ -29,14 +142,3 @@ artifacts:
   name: Linux
 - path: MacOS_binaries
   name: Mac
-notifications:
-- provider: GitHubPullRequest
-  template: Benches match!
-  on_build_success: true
-  on_build_failure: false
-  on_build_status_changed: false
-- provider: GitHubPullRequest
-  template: Benches do not match!
-  on_build_success: false
-  on_build_failure: true
-  on_build_status_changed: false
