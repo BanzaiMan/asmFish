@@ -8,4 +8,4 @@ before_install:
 script:
   - git clone --branch=travis https://github.com/double-beep/asmFish.git C:\Projects\asmFish
   - cd C:\Projects\asmFish
-  - make all
+  - ./fasmg.exe "x86/fish.asm" "asmFishL_2018-08-29_base"       -i "VERSION_OS='L'"
