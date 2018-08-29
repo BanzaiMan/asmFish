@@ -1,0 +1,10 @@
+sudo: true
+dist: trusty
+cache: ccache
+
+before_install:
+  - sudo apt-get install -y g++ wget unzip
+  
+script:
+  - git clone --branch=master https://github.com/double-beep/asmFish
+  - ./fasmg
