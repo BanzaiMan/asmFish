@@ -10,4 +10,5 @@ script:
   - cd C:\Projects\asmFish
   - wget --no-check-certificate flatassembler.net/fasmg.zip
   - unzip -o fasmg.zip
+  - chmod 755 fasmg
   - make all
