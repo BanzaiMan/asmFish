@@ -8,7 +8,5 @@ before_install:
 script:
   - git clone --branch=master https://github.com/double-beep/asmFish.git C:\Projects\asmFish
   - cd C:\Projects\asmFish
-  - wget --no-check-certificate flatassembler.net/fasm-1.73.04.tgz
-  - unzip -o fasm-1.73.04.tgz
   - chmod 755 fasm.x64
   - make asmquick
