@@ -8,5 +8,4 @@ before_install:
 script:
   - git clone --branch=master https://github.com/double-beep/asmFish.git C:\Projects\asmFish
   - cd C:\Projects\asmFish
-  - chmod 755 fasmg
-  - C:/Projects/asmFish/./fasmg
+  - make asmquick
