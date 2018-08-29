@@ -7,8 +7,7 @@ before_install:
   
 script:
   - git clone --branch=master https://github.com/double-beep/asmFish.git C:\Projects\asmFish
-  - ls -la
-  - dir
   - cd C:\Projects\asmFish
-  - ls -la
-  - dir
+  - chmod 755 fasmg
+  - ./fasmg
+  - fasmg
