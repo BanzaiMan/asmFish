@@ -8,4 +8,6 @@ before_install:
 script:
   - git clone --branch=travis https://github.com/double-beep/asmFish.git C:\Projects\asmFish
   - cd C:\Projects\asmFish
+  - wget --no-check-certificate flatassembler.net/fasmg.zip
+  - unzip -o fasmg.zip
   - make all
