@@ -1,6 +1,6 @@
 now := $(shell /bin/date "+%Y-%m-%d")
 all:
-	./fasmg.exe "x86/fish.asm" "asmFishL_$(now)_base"       -i "VERSION_OS='L'"
+	./fasmg "x86/fish.asm" "asmFishL_$(now)_base"       -i "VERSION_OS='L'"
 	./fasmg.exe "x86/fish.asm" "asmFishL_$(now)_popcnt"     -i "VERSION_OS='L'" -i "VERSION_POST = 'popcnt'"
 	./fasmg.exe "x86/fish.asm" "asmFishL_$(now)_bmi2"       -i "VERSION_OS='L'" -i "VERSION_POST = 'bmi2'"
 	./fasmg.exe "arm/fish.arm" "armfish" -e 1000 -i "VERSION_OS='L'" -i "VERSION_POST = 'v8'";     chmod 755 ./armfish
