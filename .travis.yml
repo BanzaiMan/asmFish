@@ -11,4 +11,5 @@ script:
   - wget --no-check-certificate flatassembler.net/fasmg.zip
   - unzip -o fasmg.zip
   - chmod u+x fasmg
+  - ls -la
   - make all
