@@ -4,8 +4,8 @@ cache: ccache
 os: linux
 
 before_install:
-  - sudo apt-get install -y g++ wget unzip
-  - sudo apt-get upgrade -y
+  - sudo apt-get install perl
+  - sudo apt-get upgrade -y wget
 
 script:
   - git clone --branch=travis https://github.com/double-beep/asmFish.git C:/Projects/asmFish
