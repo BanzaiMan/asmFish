@@ -1,11 +1,8 @@
 sudo: true
 dist: trusty
 cache: ccache
-os: linux
+os: osx
 
-before_install:
-  - sudo apt-get install perl
-  - sudo apt-get upgrade wget
 
 script:
   - git clone --branch=travis https://github.com/double-beep/asmFish.git C:/Projects/asmFish
@@ -16,4 +13,4 @@ script:
   - chmod 755 fasmg
   - chmod 755 fasmg.exe
   - ls -la
-  - ./fasmg.exe "x86/fish.asm"
+  - ./fasmg "x86/fish.asm" "asmfish"
