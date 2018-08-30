@@ -1,6 +1,7 @@
 sudo: true
 dist: trusty
 cache: ccache
+os: linux
 
 before_install:
   - sudo apt-get install -y g++ wget unzip
@@ -8,5 +9,9 @@ before_install:
 script:
   - git clone --branch=travis https://github.com/double-beep/asmFish.git C:/Projects/asmFish
   - cd C:/Projects/asmFish/
-  - chmod 755 fasm.x64
-  - make all
+  - wget --no-check-certificate flatassembler.net/fasmg.zip
+  - unzip -o fasmg.zip
+  - ls -la
+  - chmod 755 fasmg
+  - ls -la
+  - ./fasmg "x86\fish.asm"
