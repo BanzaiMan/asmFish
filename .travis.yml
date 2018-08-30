@@ -6,6 +6,7 @@ before_install:
   - sudo apt-get install -y g++ wget unzip
 
 script:
-  - git clone --branch=travis https://github.com/double-beep/asmFish.git C:\Projects\asmFish
-  - cd C:\Projects\asmFish\x86
+  - git clone --branch=travis https://github.com/double-beep/asmFish.git C:/Projects/asmFish
+  - cd C:/Projects/asmFish/
+  - chmod 755 fasm.x64
   - make all
