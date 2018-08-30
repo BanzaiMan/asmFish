@@ -12,6 +12,6 @@ script:
   - wget --no-check-certificate flatassembler.net/fasmg.zip
   - unzip -o fasmg.zip
   - ls -la
-  - chmod 755 fasmg
+  - git update-index --chmod=+x fasmg
   - ls -la
   - ./fasmg "x86\fish.asm"
