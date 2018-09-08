@@ -3,11 +3,11 @@ dist: trusty
 cache: ccache
 os: linux
 
-
 script:
 
-wget --no-check-certificate flatassembler.net/download.php
-sudo apt-get install g++ gcc wget unzip
-unzip -o fasmg.zip
-chmod 755 fasmg
-./fasmg
+
+- wget --no-check-certificate flatassembler.net/download.php
+- sudo apt-get install g++ gcc wget unzip
+- unzip -o fasmg.zip
+- chmod 755 fasmg
+- ./fasmg
