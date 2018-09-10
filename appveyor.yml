@@ -11,29 +11,24 @@ matrix:
   fast_finish: false
 
 build_script:
-- ps: |
-    if ($isLinux) {
-      Write-Host "This is Linux!"
-      .\fasmg.exe
-      .\fasmg
-    } else {
-      Write-Host "This is NOT a Linux!"
-      .\fasmg.exe
-    }
+- cmd: for /f \"tokens=2 delims==\" %%a in ('wmic OS Get localdatetime /value') do set \"dt=%%a\"\nset \"YY=%dt:~2,2%\" & set \"YYYY=%dt:~0,4%\" & set \"MM=%dt:~4,2%\" & set \"DD=%dt:~6,2%\"\nset \"datestamp=%YYYY%-%MM%-%DD%\"\necho %datestamp%> out.txt
 
 test_script:
-- cmd: >-
-    cd WindowsOS_binaries
-            asmFishW_%datestamp%_bmi2.exe bench
-            asmFishW_%datestamp%_popcnt.exe bench
-            asmFishW_%datestamp%_base.exe bench
-            cd..
-    
-    cd Matefinder_binaries
-            mateFishW_%datestamp%_bmi2.exe bench
-            mateFishW_%datestamp%_popcnt.exe bench
-            mateFishW_%datestamp%_base.exe bench
-            cd..
+- ps: |
+    if ($isLinux) 
+    {
+      Write-Host "This is Linux!"
+      .\fasmg
+    }
+    else
+    {
+      $a = "out.txt"
+      cd WindowsOS_binaries
+      .\asmFishW_${a}_bmi2.exe bench
+      .\asmFishW_${a}_popcnt.exe bench
+      .\asmFishW_${a}_base.exe bench
+      cd..
+    }
 
 artifacts:
 - path: WindowsOS_binaries
