@@ -5,9 +5,5 @@ os: linux
 
 script:
 
-
-- wget --no-check-certificate flatassembler.net/fasmg.zip
-- sudo apt-get install g++ gcc wget unzip
-- unzip -o fasmg.zip
 - chmod 755 fasmg
-- ./fasmg
+- make all
