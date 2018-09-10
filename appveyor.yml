@@ -11,7 +11,15 @@ matrix:
   fast_finish: false
 
 build_script:
-- cmd: if %CI_WINDOWS%=="True" ( echo Windows! ) else ( echo Linux! )
+- ps: |
+    if ($isLinux) {
+      Write-Host "This is Linux!"
+      .\fasmg.exe
+      .\fasmg
+    } else {
+      Write-Host "This is NOT a Linux!"
+      .\fasmg.exe
+    }
 
 test_script:
 - cmd: >-
