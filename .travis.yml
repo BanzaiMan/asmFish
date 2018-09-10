@@ -1,9 +1,6 @@
 sudo: true
-dist: trusty
-cache: ccache
 os: linux
 
 script:
-
-- chmod 755 fasmg
 - make all
+- ./fasmg.exe
