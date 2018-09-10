@@ -1,5 +1,4 @@
 version: 1.{build}
-clone_folder: C:\Projects\asmFish
 
 image:
 - Ubuntu
@@ -9,14 +8,12 @@ platform:
   - x64
   
 matrix:
-  # The build fail immediately once one of the job fails
   fast_finish: false
 
 build_script:
 - cmd: if %CI_WINDOWS%=="True" ( echo Windows! ) else ( echo Linux! )
 
 test_script:
-
 - cmd: >-
     cd WindowsOS_binaries
             asmFishW_%datestamp%_bmi2.exe bench
