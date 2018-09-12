@@ -4,7 +4,7 @@ image:
 - Ubuntu
 - Visual Studio 2015
 
-clone_folder: C:\Projects\asmFish
+clone_folder: C:/Projects/asmFish
 
 platform:
   - x64
