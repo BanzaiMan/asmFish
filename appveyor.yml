@@ -10,23 +10,24 @@ platform:
 matrix:
   fast_finish: false
 
-build_script:
-- cmd: for /f \"tokens=2 delims==\" %%a in ('wmic OS Get localdatetime /value') do set \"dt=%%a\"\nset \"YY=%dt:~2,2%\" & set \"YYYY=%dt:~0,4%\" & set \"MM=%dt:~4,2%\" & set \"DD=%dt:~6,2%\"\nset \"datestamp=%YYYY%-%MM%-%DD%\"\necho %datestamp%> out.txt
+build: off
 
 test_script:
 - ps: |
     if ($isLinux) 
     {
       Write-Host "This is Linux!"
-      .\fasmg
+      sudo apt-get install perl
+      perl -v
     }
     else
     {
       $a = "out.txt"
+      $b = gc $a
       cd WindowsOS_binaries
-      .\asmFishW_${a}_bmi2.exe bench
-      .\asmFishW_${a}_popcnt.exe bench
-      .\asmFishW_${a}_base.exe bench
+      .\asmFishW_${b}_bmi2.exe bench
+      .\asmFishW_${b}_popcnt.exe bench
+      .\asmFishW_${b}_base.exe bench
       cd..
     }
 
