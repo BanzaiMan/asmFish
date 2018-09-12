@@ -9,5 +9,4 @@ script:
 - PATH=$PATH:C:/Projects/asmFish:C:/Projects/asmFish/x86/include
 - export PATH
 - sudo apt-get install g++ wget unzip
-- wget --no-check-certificate flatassembler.net/fasm-1.73.04.tgz
-- unzip fasm-1.73.04.tgz
+./fasm.x64 "x86/fish.asm" "asmFishL" "VERSION_OS='L'" "PEDANTIC = 1" "VERSION_POST = 'bmi2'" 2
