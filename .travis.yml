@@ -8,4 +8,6 @@ script:
 - chmod 755 fasmg
 - PATH=$PATH:C:/Projects/asmFish:C:/Projects/asmFish/x86/include
 - export PATH
-- ./fasmg "x86/fish.asm"
+- sudo apt-get install g++ wget unzip
+- wget --no-check-certificate flatassembler.net/fasm-1.73.04.tgz
+- unzip fasm-1.73.04.tgz
