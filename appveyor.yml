@@ -25,10 +25,7 @@ test_script:
     .\fasmg "x86\fish.asm" "mateFishL_${datestamp}_base" -e 1000 -i "VERSION_OS='L'" -i "PEDANTIC = 1" -i "VERSION_POST = 'base'" -i "USE_MATEFINDER = 1" $debug
     .\fasmg "x86\fish.asm" "mateFishL_${datestamp}_popcnt" -e 1000 -i "VERSION_OS='L'" -i "VERSION_POST = 'popcnt'" -i "USE_MATEFINDER = 1" $debug
     .\fasmg "x86\fish.asm" "mateFishL_${datestamp}_bmi1" -e 1000 -i "VERSION_OS='L'" -i "VERSION_POST = 'bmi1'" -i "USE_MATEFINDER = 1" $debug
-    .\fasmg "x86\fish.asm" "mateFishL_${datestamp}_bmi2" -e 1000 -i "VERSION_OS='L'" -i "VERSION_POST = 'bmi2'" -i "USE_MATEFINDER = 1" $debug
-    Include 'arm\include'
-    .\fasmg "arm\fish.arm" "armFishL_${datestamp}_v8" -e 1000 -i "VERSION_OS='L'" -i "PEDANTIC = 1" -i "VERSION_POST = 'v8'" $debug
-    .\asmFishL_${datestamp}_popcnt bench
+    .\fasmg "x86\fish.asm" "mateFishL_${datestamp}_bmi2" -e 1000 -i "VERSION_OS='L'" -i "VERSION_POST = 'bmi2'" -i "USE_MATEFINDER = 1" $debug    .\asmFishL_${datestamp}_popcnt bench
     .\armFishL_${datestamp}_v8 bench
 
 artifacts:
