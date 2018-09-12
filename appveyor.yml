@@ -13,23 +13,11 @@ matrix:
 build: off
 
 test_script:
+
 - ps: |
-    if ($isLinux) 
-    {
-      Write-Host "This is Linux!"
-      sudo apt-get install perl
-      perl -v
-    }
-    else
-    {
-      $a = "out.txt"
-      $b = gc $a
-      cd WindowsOS_binaries
-      .\asmFishW_${b}_bmi2.exe bench
-      .\asmFishW_${b}_popcnt.exe bench
-      .\asmFishW_${b}_base.exe bench
-      cd..
-    }
+    $a = 1
+    Write-Host "${a}s"
+- sh: ./fasmg "x86\fish.asm" -i"VERSION_OS = 'L'" -i "VERSION_POST = 'bmi2'"
 
 artifacts:
 - path: WindowsOS_binaries
