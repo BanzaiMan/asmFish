@@ -4,8 +4,6 @@ image:
 - Ubuntu
 - Visual Studio 2015
 
-clone_folder: C:/Projects/asmFish
-
 platform:
   - x64
   
@@ -37,7 +35,7 @@ test_script:
     }
     else
     {
-      Write-Host "Hey, not windows here!"
+      Write-Host "123"
     }
 
 artifacts:
