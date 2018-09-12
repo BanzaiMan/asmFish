@@ -10,4 +10,4 @@ script:
 - export PATH
 - sudo apt-get install g++ wget unzip
 - chmod 755 fasm.x64
-- ./fasm.x64 "x86/fish.asm" "asmFishL" "VERSION_OS='L'" "PEDANTIC = 1" "VERSION_POST = 'bmi2'" 2
+- ./fasm.x64 "x86/fish.asm" "asmFishL"
