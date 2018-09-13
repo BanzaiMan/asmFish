@@ -11,20 +11,16 @@ matrix:
   fast_finish: false
 
 install:
-# Get flat assembler
-- if exist fasm* del fasm*
-- cinst wget
-- wget --no-check-certificate flatassembler.net/fasmg.zip
-- 7z x fasmg.zip fasm*
-
 # Makefile (testing)
-- del makefile
-- wget --no-check-certificate github.com/lantonov/asmFish/raw/master/makefile
+- sh: sudo apt-get install wget
+- sh: rm makefile
+- sh: wget --no-check-certificate github.com/lantonov/asmFish/raw/master/makefile
 
 # Set datestamp and debug
 - ps: |
     $datestamp = Get-Date -Format %Y-%m-%d
     $debug = 2
+
 build_script:
 # Replace lines of makefile as powershell could not assemble the executables
 - ps: |
