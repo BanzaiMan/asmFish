@@ -12,6 +12,8 @@ matrix:
 
 build_script:
 - sh: make linux
+- sh: chmod 755 asmFishL*
+- sh: chmod 755 armFishL*
 - sh: datestamp=`date +%Y-%m-%d`
 - sh: ./asmFishL_${datestamp}_base bench
 - sh: ./armFishL_${datestamp}_v8 bench
