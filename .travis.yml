@@ -27,3 +27,4 @@ script:
 - export asmX=$(cat asmX.txt)
 - export stockfish=$(cat stockfish.txt)
 - if [ $stockfish -ne $asmX ]; then exit 1; fi
+
