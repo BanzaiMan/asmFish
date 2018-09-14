@@ -425,6 +425,6 @@ goto menu
 if exist fasmg.exe del fasmg.exe
 call cscript /nologo "%~dp0download.vbs" https://flatassembler.net fasmg.zip fasmg.exe fasmg.exe "The latest fasmg assembler"
 echo.
-goto menu
+goto:eof
 
 :END
