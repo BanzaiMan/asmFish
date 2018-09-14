@@ -3,7 +3,6 @@ dist: trusty
 os: osx
 
 script:
-- rm fasmg
 - wget flatassembler.net/fasmg.zip
 - unzip -o fasmg.zip
 - cd source/macos
