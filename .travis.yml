@@ -3,7 +3,6 @@ dist: trusty
 os: linux
 
 script:
-- git clone -q --branch=travis https://github.com/double-beep/asmFish.git /home/double-beep/asmFish
-- cd /home/double-beep/asmFish
+- ls -la
 - chmod 755 fasmg
 - ./fasmg
