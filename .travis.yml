@@ -1,9 +1,9 @@
 sudo: required
 dist: trusty
-os: osx
+os: linux
 
 script:
 - ls -la
 - ls fasmg
 - chmod 755 fasmg
-- ./fasmg
+- make all
