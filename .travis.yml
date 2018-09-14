@@ -8,6 +8,8 @@ script:
 - unzip -o fasmg.zip
 - cd source/macos
 - chmod 755 fasmg
-- mv fasmg double-beep/asmFish
-- cd double-beep/asmFish
+- mv fasmg ..
+- cd..
+- mv fasmg ..
+- cd ..
 - make all
