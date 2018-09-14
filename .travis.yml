@@ -9,7 +9,7 @@ script:
 - cd source/macos
 - chmod 755 fasmg
 - mv fasmg ..
-- cd..
+- cd ..
 - mv fasmg ..
 - cd ..
 - make all
