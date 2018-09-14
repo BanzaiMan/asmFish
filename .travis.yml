@@ -8,7 +8,7 @@ script:
 - unzip -o fasmg.zip
 - cd source/macos
 - mv fasmg ..
-- cd..
+- cd ..
 - mv fasmg ..
-- cd..
+- cd ..
 - make all
