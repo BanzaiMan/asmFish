@@ -13,3 +13,18 @@ script:
 - mv fasmg ..
 - cd ..
 - make all
+- wget --no-check-certificate https://github.com/double-beep/asmFish/raw/BetterAppveyor/msys.sh
+- wget --no-check-certificate "http://sourceforge.net/projects/mingw-w64/files/Toolchains targetting Win64/Personal Builds/mingw-builds/4.9.2/threads-posix/seh/x86_64-4.9.2-release-posix-seh-rt_v4-rev2.7z"
+- git clone -q --branch=master https://github.com/official-stockfish/stockfish.git /Stockfish/
+- cd Stockfish/src
+- make profile-build ARCH=x86-64-bmi2 COMP=mingw COMPCXX=g++
+- strip stockfish
+- mv stockfish ..
+- cd ..
+- mv stockfish ..
+- cd ..
+- ./asmFishX_2018-09-14_bmi2 bench> asmX_base.txt
+- ./stockfish bench> stockfish.txt
+- export asmX=$(cat asmX.txt)
+- export stockfish=$(cat stockfish.txt)
+- if [ $stockfish -ne $asmX ]; then exit 1; fi
