@@ -1,9 +1,14 @@
 sudo: required
 dist: trusty
-os: linux
+os: osx
 
 script:
-- ls -la
-- ls fasmg
-- chmod 755 fasmg
+- rm fasmg
+- wget flatassembler.net/fasmg.zip
+- unzip -o fasmg.zip
+- cd source/macos
+- mv fasmg ..
+- cd..
+- mv fasmg ..
+- cd..
 - make all
