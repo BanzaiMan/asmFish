@@ -7,8 +7,7 @@ script:
 - wget flatassembler.net/fasmg.zip
 - unzip -o fasmg.zip
 - cd source/macos
-- mv fasmg ..
-- cd ..
-- mv fasmg ..
-- cd ..
+- chmod 755 fasmg
+- mv fasmg double-beep/asmFish
+- cd double-beep/asmFish
 - make all
