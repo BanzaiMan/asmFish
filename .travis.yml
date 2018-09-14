@@ -8,24 +8,19 @@ script:
 - unzip -o fasmg.zip
 - cd source/macos
 - chmod 755 fasmg
-- mv fasmg ..
-- cd ..
-- mv fasmg ..
-- cd ..
+- mv fasmg $TRAVIS_BUILD_DIR
+- cd $TRAVIS_BUILD_DIR
 - export datestamp=`date +%Y-%m-%d`
 - ./fasmg "x86/fish.asm" "asmFishX_${datestamp}_bmi2" -i "VERSION_OS = 'X'" -i "VERSION_POST = 'bmi2'"
 - wget --no-check-certificate https://github.com/double-beep/asmFish/raw/BetterAppveyor/msys.sh
 - wget --no-check-certificate "http://sourceforge.net/projects/mingw-w64/files/Toolchains targetting Win64/Personal Builds/mingw-builds/4.9.2/threads-posix/seh/x86_64-4.9.2-release-posix-seh-rt_v4-rev2.7z"
 - git clone -q --branch=master https://github.com/official-stockfish/stockfish.git
-- ls -la
 - cd stockfish/src
 - make clean && make -j2 ARCH=x86-64 optimize=no debug=yes build
 - make strip
-- mv stockfish ..
-- cd ..
-- mv stockfish ..
-- cd ..
-
+- mv stockfish stockfish1
+- mv stockfish1 $TRAVIS_BUILD_DIR
+- cd $TRAVIS_BUILD_DIR
 - export
 - ./asmFishX_${datestamp}_bmi2 bench > asmX_base.txt
 - ./stockfish bench > stockfish.txt
