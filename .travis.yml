@@ -22,8 +22,9 @@ script:
 - mv stockfish1 $TRAVIS_BUILD_DIR
 - cd $TRAVIS_BUILD_DIR
 - export
+- chmod 755 stockfish1 asmFishX_${datestamp}_bmi2
 - ./asmFishX_${datestamp}_bmi2 bench > asmX_base.txt
-- ./stockfish bench > stockfish.txt
+- ./stockfish1 bench > stockfish.txt
 - export asmX=$(cat asmX.txt)
 - export stockfish=$(cat stockfish.txt)
 - if [ $stockfish -ne $asmX ]; then exit 1; fi
